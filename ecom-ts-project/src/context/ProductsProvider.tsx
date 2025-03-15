@@ -9,25 +9,25 @@ export type ProductType = {
 };
 
 // Initialize the initial state with an array of products
-// const initState: ProductType[] = [
-//   {
-//     sku: "item0001",
-//     name: "Widget",
-//     price: 9.99,
-//   },
-//   {
-//     sku: "item0002",
-//     name: "Premium Widget",
-//     price: 19.99,
-//   },
-//   {
-//     sku: "item0003",
-//     name: "Deluxe Widget",
-//     price: 29.99,
-//   },
-// ];
+const initState: ProductType[] = [
+  {
+    sku: "item0001",
+    name: "Widget",
+    price: 9.99,
+  },
+  {
+    sku: "item0002",
+    name: "Premium Widget",
+    price: 19.99,
+  },
+  {
+    sku: "item0003",
+    name: "Deluxe Widget",
+    price: 29.99,
+  },
+];
 
-const initState: ProductType[] = [];
+// const initState: ProductType[] = [];
 
 // Define a type for the context state, which will hold the products
 /*
@@ -52,20 +52,24 @@ export const ProductsProvider = ({ children }: ChildrenType): ReactElement => {
   // Use state to manage the products, initialized with the initial state
   const [products, setProducts] = useState<ProductType[]>(initState);
 
-  //   fetching the data from the server once the ProductProvider render the first time
   useEffect(() => {
-    const fetchProducts = async (): Promise<ProductType[]> => {
-      const data = await fetch("http://localhost:3500/products")
-        .then((res) => {
-          return res.json();
-        })
-        .catch((err) => {
-          if (err instanceof Error) console.log(err.message);
-        });
-      return data;
-    };
-    fetchProducts().then((products) => setProducts(products));
+    setProducts(initState);
   }, []);
+
+  //   fetching the data from the server once the ProductProvider render the first time
+  // useEffect(() => {
+  //   const fetchProducts = async (): Promise<ProductType[]> => {
+  //     const data = await fetch("http://localhost:3500/products")
+  //       .then((res) => {
+  //         return res.json();
+  //       })
+  //       .catch((err) => {
+  //         if (err instanceof Error) console.log(err.message);
+  //       });
+  //     return data;
+  //   };
+  //   fetchProducts().then((products) => setProducts(products));
+  // }, []);
   // Return the provider component, passing the current state of products to the context
   return (
     <ProductsContext.Provider value={{ products }}>
@@ -75,4 +79,4 @@ export const ProductsProvider = ({ children }: ChildrenType): ReactElement => {
 };
 
 // Export the ProductsProvider component as the default export
-export default ProductsProvider;
+export default ProductsContext;
